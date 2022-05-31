@@ -1,6 +1,7 @@
 using namespace std;
 #include <bits/stdc++.h>
 #include "Patient.cpp"
+
 map<int,deque<Patient>> mp ;
 
 void insert_patient(int spec, string name, int status);
@@ -70,7 +71,7 @@ void next_patient(int spec)
         cout << "specialization should be between 1 and 20";
         return;
     }
-    deque<Patient> dq = mp[spec];
+    deque<Patient>& dq = mp[spec];
     if(dq.empty())
     {
         cout << "no patients in this specialization" << endl;
@@ -78,13 +79,12 @@ void next_patient(int spec)
     }
     cout << "patient " +  dq.front().get_name() << " please go with the doctor" << endl;
     dq.pop_front();
-    mp[spec] = dq;
 }
 void insert_patient(int spec, string name, int status)
 {
 
     Patient p{spec,name,status};
-    deque<Patient> dq = mp[spec];
+    deque<Patient>& dq = mp[spec];
     if(dq.size() == 5)
     {
         cout << "Sorry, there are 5 people already in queue" << endl;
@@ -94,7 +94,6 @@ void insert_patient(int spec, string name, int status)
         dq.push_front(p);
     else
         dq.push_back(p);
-    mp[spec] = dq;
 }
 void print_patients()
 {
