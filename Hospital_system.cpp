@@ -2,9 +2,11 @@ using namespace std;
 #include <bits/stdc++.h>
 #include "Patient.cpp"
 map<int,deque<Patient>> mp ;
+
 void insert_patient(int spec, string name, int status);
 void print_patients();
 void next_patient(int spec);
+
 int main()
 {
     cout << "Enter your choice:" << endl;
@@ -17,8 +19,10 @@ int main()
     while(cin>>command)
     {
 
-      switch(command){
-        case 1:{
+        switch(command)
+        {
+        case 1:
+        {
             cout << "Enter specialization, name, status: ";
 
             int spec,status;
@@ -33,7 +37,8 @@ int main()
         case 2:
             print_patients();
             break;
-        case 3:{
+        case 3:
+        {
             cout << "Enter specialization: ";
 
             int spec;
@@ -58,13 +63,16 @@ int main()
 
     return 0;
 }
-void next_patient(int spec){
-    if(spec < 1 || spec > 20){
+void next_patient(int spec)
+{
+    if(spec < 1 || spec > 20)
+    {
         cout << "specialization should be between 1 and 20";
         return;
     }
     deque<Patient> dq = mp[spec];
-    if(dq.empty()){
+    if(dq.empty())
+    {
         cout << "no patients in this specialization" << endl;
         return;
     }
@@ -77,7 +85,8 @@ void insert_patient(int spec, string name, int status)
 
     Patient p{spec,name,status};
     deque<Patient> dq = mp[spec];
-    if(dq.size() == 5){
+    if(dq.size() == 5)
+    {
         cout << "Sorry, there are 5 people already in queue" << endl;
         return;
     }
@@ -93,13 +102,14 @@ void print_patients()
     for(int i = 0; i < mp.size(); i++)
     {
         deque<Patient> dq = mp[i];
-        if(!dq.empty()){
+        if(!dq.empty())
+        {
             string diff_1,diff_2;
             bool sz = dq.size() == 1;
             diff_1 = (sz ? "is" : "are");
             diff_2 = (sz ? "patient" : "patients");
             string p_template = "There " + diff_1 + ' ' + to_string(dq.size()) + ' ' + diff_2
-                               + " in specialization " +  to_string(i);
+                                + " in specialization " +  to_string(i);
             cout << p_template << endl;
             for (int f = 0; f < dq.size(); f++)
                 cout << dq[f].get_name() << ' ' << (dq[f].get_status() ? "urgent" : "regular") << endl;
