@@ -77,6 +77,10 @@ void insert_patient(int spec, string name, int status)
 
     Patient p{spec,name,status};
     deque<Patient> dq = mp[spec];
+    if(dq.size() == 5){
+        cout << "Sorry, there are 5 people already in queue" << endl;
+        return;
+    }
     if(status)
         dq.push_front(p);
     else
